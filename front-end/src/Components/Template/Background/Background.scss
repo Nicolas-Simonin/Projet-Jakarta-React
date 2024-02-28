@@ -1,0 +1,345 @@
+@mixin sp-layout {
+    @media screen and (max-width: 750px) {
+      @content;
+    }
+  }
+  
+  body {
+    // display: flex;
+    // justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+     background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+    overflow: visible;
+    z-index: -99;
+  }
+  
+  @function random_range($min, $max) {
+    $rand: random();
+    $random_range: $min + floor($rand * (($max - $min) + 1));
+    @return $random_range;
+  }
+  
+  .stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: rotate(-45deg);
+    z-index: -99;
+  }
+  
+  .star {
+    z-index: -99;
+    $star-count: 100;
+    --star-color: var(--primary-color);
+    --star-tail-length: 6em;
+    --star-tail-height: 2px;
+    --star-width: calc(var(--star-tail-length) / 6);
+    --fall-duration: 9s;
+    --tail-fade-duration: var(--fall-duration);
+  
+    position: absolute;
+    top: var(--top-offset);
+    left: 0;
+    width: var(--star-tail-length);
+    height: var(--star-tail-height);
+    color: lightblue;
+    background: linear-gradient(45deg, currentColor, transparent);
+    border-radius: 50%;
+    filter: drop-shadow(0 0 6px currentColor);
+    transform: translate3d(104em, 0, 0);
+    animation: fall var(--fall-duration) var(--fall-delay) linear infinite, tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
+    
+    @include sp-layout {
+      // For mobile performance, tail-fade animation will be removed QAQ
+      animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
+    }
+  
+    @for $i from 1 through $star-count {
+      &:nth-child(#{$i}) {
+        --star-tail-length: #{random_range(500em, 750em) / 100};
+        --top-offset: #{random_range(0vh, 10000vh) / 100};
+        --fall-duration: #{random_range(6000, 12000s) / 1000};
+        --fall-delay: #{random_range(0, 10000s) / 1000};
+      }
+    }
+  
+    &::before, &::after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: calc(var(--star-width) / -2);
+      width: var(--star-width);
+      height: 100%;
+      background: linear-gradient(45deg, transparent, currentColor, transparent);
+      border-radius: inherit;
+      animation: blink 2s linear infinite;
+    }
+  
+    &::before {
+      transform: rotate(45deg);
+    }
+  
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+  
+  @keyframes fall {
+    to {
+      transform: translate3d(-30em, 0, 0);
+    }
+  }
+  
+  @keyframes tail-fade {
+    0%, 50% {
+      width: var(--star-tail-length);
+      opacity: 1;
+    }
+  
+    70%, 80% {
+      width: 0;
+      opacity: 0.4;
+    }
+  
+    100% {
+      width: 0;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  section {
+    padding: 2rem 20%;
+  }
+
+  section:nth-child(1) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Animateur_trice_2d_3d.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  
+  section:nth-child(2) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Animateur_trice_radio_tele.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(3) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Assistant_de_realisateur.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+    section:nth-child(4) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Cadreur.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(5) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Chargee_de_production.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(6) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Chef_monteur.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(7) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Photograpge.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(8) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Ingenieur_son.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(9) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Journaliste_reporter_d_image.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+      section:nth-child(10) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Machiniste_plateau.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+      section:nth-child(11) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Mixeur_so.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+      section:nth-child(12) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Photographe.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(13) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Regiseur_generale.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+      section:nth-child(14) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/Scenariste.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+      section:nth-child(15) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+    background-image: url("../../../../public/Images/Formation/scripte.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  section:nth-child(16) {
+    background: rgba(33,37,41,1);
+    color: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    padding: 10rem 20%;
+    border-radius: 18px;
+
+  }
+
+
+  section .fas.fa-times {
+    position: relative;
+    top: -350px;
+    right: -950px;
+    height: 20px;
+    width: 20px;
+    background-color: #f3cff379;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // z-index:3;
+}
+
+section p {
+  background-color:rgba(33,37,41,1);
+  border-radius:10px;
+  padding: 10px;
+}
